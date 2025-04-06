@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn Ease</title>
+  <link rel="icon" href="https://img.icons8.com/emoji/48/graduation-cap-emoji.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f7faff;
+    }
+    header, footer {
+      background: #fff;
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    nav a {
+      margin: 0 1em;
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+    }
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5em 3em;
+      background: linear-gradient(to right, #f0fcff, #e3f9ff);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, #aee8ff, #fff0);
+      top: -50px;
+      left: -100px;
+      z-index: 0;
+      transform: rotate(30deg);
+    }
+    .hero-text {
+      flex: 1;
+      max-width: 500px;
+      z-index: 1;
+      text-align: left;
+    }
+    .hero-text h1 {
+      font-size: 3em;
+      color: #111;
+      margin-bottom: 0.4em;
+    }
+    .hero-text p {
+      font-size: 1.2em;
+      color: #333;
+      margin-bottom: 1.5em;
+    }
+    .hero-img {
+      flex: 1;
+      text-align: right;
+      z-index: 1;
+    }
+    .hero-img img {
+      max-width: 100%;
+      filter: drop-shadow(0px 5px 20px rgba(0, 0, 0, 0.2));
+    }
+    .btn {
+      background: #00c896;
+      color: #fff;
+      padding: 0.75em 2em;
+      border: none;
+      margin-right: 1em;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      background: #00a87b;
+      transform: translateY(-2px);
+    }
+    .features, .courses, .testimonials, .articles, .contact-section {
+      padding: 3em 2em;
+      text-align: center;
+    }
+    .card {
+      background: #fff;
+      padding: 1.5em;
+      margin: 1em;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+      display: inline-block;
+      width: 280px;
+      vertical-align: top;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .testimonial {
+      background: #fff;
+      padding: 2em;
+      margin: 2em auto;
+      border-radius: 16px;
+      max-width: 600px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .testimonial + .testimonial {
+      margin-top: 1.5em;
+    }
+    .contact-section input, .contact-section textarea {
+      width: 45%;
+      margin: 1em 1%;
+      padding: 1em;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+    .contact-section textarea {
+      width: 93%;
+      height: 100px;
+    }
+    .contact-section .submit-btn {
+      background: #00c896;
+      color: white;
+      padding: 1em 2em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 1em;
+    }
+    .contact-section .submit-btn:hover {
+      background: #00a87b;
+    }
+    footer {
+      flex-direction: column;
+      text-align: center;
+      font-size: 0.9em;
+      background: linear-gradient(to top, #00c896, #70e1f5);
+      color: white;
+    }
+    .footer-links a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+    .logo {
+      height: 40px;
+    }
+    .marquee {
+      background: #00c896;
+      color: white;
+      padding: 0.5em 1em;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    .marquee span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 15s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+    .card a {
+      text-decoration: none;
+      color: inherit;
+      font-weight: bold;
+    }
+    .animated-sparkle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100px;
+      background-image: url('https://img.icons8.com/fluency/96/sparkles.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      animation: sparkle 4s infinite ease-in-out;
+      pointer-events: none;
+    }
+    @keyframes sparkle {
+      0%   { transform: scale(1) rotate(0deg); opacity: 0.2; }
+      50%  { transform: scale(1.3) rotate(15deg); opacity: 1; }
+      100% { transform: scale(1) rotate(-15deg); opacity: 0.2; }
+    }
+    .mobile-only {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .mobile-only {
+        display: block;
+        text-align: center;
+        background: #fff8f0;
+        padding: 1.5em;
+        font-size: 1.2em;
+        color: #111;
+        font-weight: 600;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="marquee"><span>🚀 New: Gen-Z Focused Microlearning Platform Just Launched! 🎓 | 📢 Join our community now and level up your skills!</span></div>
+  <div class="animated-sparkle"></div>
+  <div class="mobile-only">📱 Optimized for mobile! Enjoy a seamless experience on your device.</div>
+  <header>
+    <img class="logo" src="https://img.icons8.com/emoji/48/graduation-cap-emoji.png" alt="logo">
+    <nav>
+      <a href="#courses">Courses</a>
+      <a href="#features">Features</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#articles">Articles</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Level Up Your Learning</h1>
+      <p>Empowering Gen Z with top-tier <strong>online courses</strong> and <strong>offline training programs for colleges</strong>. Learn your way — anytime, anywhere.</p>
+      <a href="#courses" class="btn">Explore Courses</a>
+      <a href="#contact" class="btn">Partner with Us</a>
+    </div>
+    <div class="hero-img">
+      <img src="https://img.freepik.com/free-vector/college-education-concept-illustration_114360-7985.jpg" alt="Gen Z Learning Illustration">
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <h2>Features</h2>
+    <div class="card">Interactive Lessons</div>
+    <div class="card">Expert Tutors</div>
+    <div class="card">Gen-Z Friendly Design</div>
+  </section>
+
+  <section class="courses" id="courses">
+    <h2>Popular Courses</h2>
+    <div class="card"><a href="https://learnpython.org" target="_blank">Python for Beginners <br><small style="color:green;">[Online]</small></a></div>
+    <div class="card"><a href="https://zerodha.com/varsity/module/personal-finance/" target="_blank">Financial Literacy 101 <br><small style="color:green;">[Online]</small></a></div>
+    <div class="card"><a href="https://www.figma.com/resources/learn-design/" target="_blank">Design Like a Pro <br><small style="color:green;">[Online]</small></a></div>
+    <div class="card"><a href="#contact">Bulk Training for Colleges <br><small style="color:blue;">[Offline - Campus Program]</small></a></div>
+  </section>
+
+  <section class="testimonials" id="testimonials">
+    <h2>What Learners Say</h2>
+    <div class="testimonial">"Loved the content and easy style! Learned more in a week than a whole semester."</div>
+    <div class="testimonial">"Courses are very relatable. Finally, someone who gets how we learn best."</div>
+  </section>
+
+  <section class="articles" id="articles">
+    <h2>From the Blog</h2>
+    <div class="card">Top 10 Study Hacks for 2025</div>
+    <div class="card">Why Microlearning is the Future</div>
+    <div class="card">Balancing Fun and Studies</div>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <h2>Contact Us</h2>
+    <form action="https://formspree.io/f/mleqavjk" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Learn Ease. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="https://www.privacypolicies.com/live/learn-ease-privacy-policy" target="_blank">Privacy</a>
+      <a href="https://www.termsfeed.com/live/terms-and-conditions-generator" target="_blank">Terms</a>
+      <a href="#contact">Help</a>
+    </div>
+  </footer>
+</body>
+</html>
