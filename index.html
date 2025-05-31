@@ -6,90 +6,7 @@
     <title>Learn Ease - Your Path to Trending Skills</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-        }
-        .hero-section {
-            /* Luxurious Gradient Background */
-            background: linear-gradient(to right, #0a1f44, #2a0a44); /* Deep blue to deep purple */
-            color: white;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.6); /* Stronger shadow for text readability */
-            min-height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start; /* Align content to the left */
-            text-align: left; /* Text alignment */
-            padding-top: 96px; /* Adjust for fixed navbar */
-            position: relative;
-            overflow: hidden; /* Hide overflowing blob animations */
-        }
-        .hero-content {
-            max-width: 800px; /* Limit content width for better readability */
-            padding-left: 4rem; /* More padding on the left */
-            padding-right: 2rem;
-            z-index: 10; /* Ensure content is above background animations */
-        }
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1000; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
-            backdrop-filter: blur(8px); /* Stronger blur effect */
-            -webkit-backdrop-filter: blur(8px); /* Safari support */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.4s ease-in-out;
-            pointer-events: none; /* Allows clicks through when hidden */
-        }
-        .modal.show {
-            opacity: 1;
-            pointer-events: auto; /* Disables clicks through when shown */
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 2.5rem;
-            border-radius: 2rem; /* More rounded */
-            width: 90%;
-            max-width: 900px; /* Slightly wider modal */
-            position: relative;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3); /* Stronger shadow */
-            transform: translateY(30px); /* More pronounced slide-in */
-            transition: transform 0.4s ease-in-out;
-        }
-        .modal.show .modal-content {
-            transform: translateY(0);
-        }
-        .close-button {
-            color: #aaa;
-            position: absolute;
-            top: 1.2rem;
-            right: 1.8rem;
-            font-size: 2.8rem; /* Slightly larger close button */
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        .close-button:hover,
-        .close-button:focus {
-            color: #555; /* Darker on hover */
-            text-decoration: none;
-        }
-
-        /* Smooth scroll for anchor links */
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -230,8 +147,17 @@
                 <div>
                     <h3 class="text-2xl font-bold text-indigo-600 mb-3">About the Course</h3>
                     <p id="modal-course-description" class="text-gray-700 leading-relaxed mb-6 text-lg"></p>
+                    
+                    <button id="generate-ai-description" class="mt-4 px-6 py-3 bg-blue-500 text-white font-semibold rounded-full shadow-md hover:bg-blue-600 transition duration-300 text-base flex items-center justify-center">
+                        Generate AI Description
+                        <span id="ai-loading-spinner" class="loader hidden"></span>
+                    </button>
+                    <div id="ai-description-container" class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200 hidden">
+                        <h4 class="text-xl font-bold text-blue-700 mb-2">AI-Enhanced Description:</h4>
+                        <p id="ai-generated-description" class="text-gray-800 leading-relaxed text-base"></p>
+                    </div>
 
-                    <h3 class="text-2xl font-bold text-indigo-600 mb-3">Key Learnings</h3>
+                    <h3 class="text-2xl font-bold text-indigo-600 mb-3 mt-6">Key Learnings</h3>
                     <ul id="modal-course-learnings" class="list-disc list-inside text-gray-700 mb-6 space-y-2 text-lg">
                         </ul>
                 </div>
@@ -461,347 +387,33 @@
         </div>
     </footer>
 
-    <script>
-        // Data for course details (remains the same as before)
-        const coursesData = {
-            'data-science': {
-                title: 'Data Science Masterclass',
-                description: 'This comprehensive course covers everything from data collection and cleaning to advanced machine learning models. You will learn Python, R, SQL, data visualization, statistical analysis, and various machine learning algorithms. Ideal for aspiring data scientists and analysts.',
-                duration: '6 Months',
-                fees: '$1200',
-                instructor: 'Dr. Emily Chen',
-                batch: 'July 15, 2024',
-                learnings: [
-                    'Fundamentals of Python and R for Data Science',
-                    'Data Manipulation and Cleaning with Pandas/dplyr',
-                    'Statistical Analysis and Hypothesis Testing',
-                    'Machine Learning Algorithms (Regression, Classification, Clustering)',
-                    'Deep Learning Basics with TensorFlow/PyTorch',
-                    'Big Data Technologies (Hadoop, Spark)',
-                    'Data Visualization with Matplotlib, Seaborn, ggplot2',
-                    'SQL for Data Analysis'
-                ],
-                curriculum: [
-                    'Module 1: Introduction to Data Science & Python/R',
-                    'Module 2: Data Preprocessing & Exploratory Data Analysis',
-                    'Module 3: Statistical Foundations for Data Science',
-                    'Module 4: Machine Learning - Supervised Learning',
-                    'Module 5: Machine Learning - Unsupervised Learning',
-                    'Module 6: Introduction to Deep Learning',
-                    'Module 7: Big Data Ecosystem & Cloud Platforms',
-                    'Module 8: Capstone Project'
-                ]
-            },
-            'web-development': {
-                title: 'Full Stack Web Development',
-                description: 'Become a proficient full-stack developer capable of building robust and scalable web applications. This course covers front-end development (HTML, CSS, JavaScript, React) and back-end development (Node.js, Express) with database integration (MongoDB).',
-                duration: '5 Months',
-                fees: '$1000',
-                instructor: 'Mr. Alex Rivera',
-                batch: 'Aug 1, 2024',
-                learnings: [
-                    'HTML5, CSS3, and Responsive Design',
-                    'Modern JavaScript (ES6+)',
-                    'React.js for Front-end Development',
-                    'Node.js and Express.js for Back-end APIs',
-                    'MongoDB for Database Management',
-                    'RESTful API Design and Integration',
-                    'Authentication and Authorization',
-                    'Deployment Strategies (Netlify, Heroku)'
-                ],
-                curriculum: [
-                    'Module 1: Front-end Fundamentals (HTML, CSS, JS)',
-                    'Module 2: Advanced JavaScript & DOM Manipulation',
-                    'Module 3: React.js - Components, State, Hooks',
-                    'Module 4: React.js - Routing & State Management',
-                    'Module 5: Node.js & Express.js - Server-side Programming',
-                    'Module 6: MongoDB - Database Integration',
-                    'Module 7: Authentication & Deployment',
-                    'Module 8: Final Project'
-                ]
-            },
-            'ai-ml': {
-                title: 'Artificial Intelligence & Machine Learning',
-                description: 'Explore the fascinating world of AI and Machine Learning. This course delves into foundational concepts, advanced algorithms, and practical applications using Python and popular libraries like scikit-learn and TensorFlow.',
-                duration: '7 Months',
-                fees: '$1500',
-                instructor: 'Dr. Sarah Lee',
-                batch: 'Sep 10, 2024',
-                learnings: [
-                    'Introduction to AI and ML Concepts',
-                    'Python for AI/ML (NumPy, Pandas, Matplotlib)',
-                    'Supervised Learning (Linear Regression, Logistic Regression, SVM, Decision Trees)',
-                    'Unsupervised Learning (K-Means, Hierarchical Clustering)',
-                    'Neural Networks and Deep Learning Fundamentals',
-                    'Convolutional Neural Networks (CNNs) for Image Processing',
-                    'Recurrent Neural Networks (RNNs) for Sequence Data',
-                    'Natural Language Processing (NLP) Basics'
-                ],
-                curriculum: [
-                    'Module 1: AI/ML Overview & Python Setup',
-                    'Module 2: Data Preprocessing & Feature Engineering',
-                    'Module 3: Supervised Learning Algorithms',
-                    'Module 4: Unsupervised Learning & Dimensionality Reduction',
-                    'Module 5: Deep Learning with TensorFlow/Keras',
-                    'Module 6: Computer Vision Applications',
-                    'Module 7: Natural Language Processing',
-                    'Module 8: AI/ML Project'
-                ]
-            },
-            'digital-marketing': {
-                title: 'Certified Digital Marketing Professional',
-                description: 'Master the art of digital marketing and drive online growth. This course covers SEO, SEM, social media marketing, content marketing, email marketing, and analytics to build effective digital campaigns.',
-                duration: '4 Months',
-                fees: '$800',
-                instructor: 'Ms. Olivia Brown',
-                batch: 'Oct 5, 2024',
-                learnings: [
-                    'Search Engine Optimization (SEO) Strategies',
-                    'Search Engine Marketing (SEM) & Google Ads',
-                    'Social Media Marketing (Facebook, Instagram, LinkedIn)',
-                    'Content Marketing & Strategy',
-                    'Email Marketing Automation',
-                    'Website Analytics with Google Analytics',
-                    'Conversion Rate Optimization (CRO)',
-                    'Mobile Marketing'
-                ],
-                curriculum: [
-                    'Module 1: Introduction to Digital Marketing',
-                    'Module 2: Search Engine Optimization (SEO)',
-                    'Module 3: Search Engine Marketing (SEM)',
-                    'Module 4: Social Media Marketing',
-                    'Module 5: Content Marketing & Strategy',
-                    'Module 6: Email Marketing & Automation',
-                    'Module 7: Web Analytics & Reporting',
-                    'Module 8: Digital Marketing Campaign Planning'
-                ]
-            },
-            'cloud-computing': {
-                title: 'Cloud Computing Fundamentals',
-                description: 'Gain a solid understanding of cloud computing concepts and popular platforms like AWS, Azure, and Google Cloud. Learn about cloud services, deployment models, and best practices for cloud infrastructure.',
-                duration: '5 Months',
-                fees: '$1100',
-                instructor: 'Mr. David Kim',
-                batch: 'Nov 1, 2024',
-                learnings: [
-                    'Introduction to Cloud Computing & its Benefits',
-                    'Cloud Service Models (IaaS, PaaS, SaaS)',
-                    'Cloud Deployment Models (Public, Private, Hybrid)',
-                    'AWS Core Services (EC2, S3, RDS, VPC)',
-                    'Azure Fundamentals (Virtual Machines, Storage, Networking)',
-                    'Google Cloud Platform Basics (Compute Engine, Cloud Storage)',
-                    'Cloud Security Best Practices',
-                    'Cost Management in Cloud'
-                ],
-                curriculum: [
-                    'Module 1: Cloud Computing Overview',
-                    'Module 2: AWS Essentials',
-                    'Module 3: Microsoft Azure Basics',
-                    'Module 4: Google Cloud Platform Introduction',
-                    'Module 5: Cloud Security & Compliance',
-                    'Module 6: Cloud Networking & Storage',
-                    'Module 7: Serverless Computing',
-                    'Module 8: Cloud Migration Strategies'
-                ]
-            },
-            'ui-ux-design': {
-                title: 'Professional UI/UX Design',
-                description: 'Learn to design intuitive and engaging user interfaces (UI) and user experiences (UX) for web and mobile applications. This course covers design principles, wireframing, prototyping, and user testing.',
-                duration: '4 Months',
-                fees: '$950',
-                instructor: 'Ms. Jessica Wong',
-                batch: 'Dec 1, 2024',
-                learnings: [
-                    'Fundamentals of UI/UX Design',
-                    'User Research & Persona Creation',
-                    'Information Architecture & Wireframing',
-                    'Prototyping with Figma/Adobe XD',
-                    'Usability Testing & Feedback Integration',
-                    'Visual Design Principles (Color, Typography, Layout)',
-                    'Interaction Design & Animation',
-                    'Design Systems & Accessibility'
-                ],
-                curriculum: [
-                    'Module 1: Introduction to UI/UX',
-                    'Module 2: User Research & Analysis',
-                    'Module 3: Information Architecture & Wireframing',
-                    'Module 4: Prototyping & User Flows',
-                    'Module 5: Visual Design & Branding',
-                    'Module 6: Interaction Design & Animation',
-                    'Module 7: Usability Testing & Iteration',
-                    'Module 8: Building a UI/UX Portfolio'
-                ]
-            }
-        };
+    <button id="open-chatbot-fab" class="fixed bottom-8 right-8 bg-indigo-600 text-white p-4 rounded-full shadow-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-110 focus:outline-none">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+    </button>
 
-        // --- Navbar Mobile Menu Toggle ---
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const navbarLinks = document.getElementById('navbar-links');
+    <div id="chatbot-modal" class="modal">
+        <div class="modal-content max-w-md w-full p-6 bg-white rounded-xl shadow-2xl flex flex-col h-3/4 md:h-2/3 lg:h-1/2">
+            <div class="flex justify-between items-center pb-4 border-b border-gray-200">
+                <h3 class="text-2xl font-bold text-gray-900">Learn Ease AI Assistant</h3>
+                <span id="close-chatbot-button" class="close-button text-gray-500 hover:text-gray-800">&times;</span>
+            </div>
+            <div id="chat-messages" class="flex-1 overflow-y-auto py-4 space-y-4">
+                <div class="flex justify-start">
+                    <div class="bg-gray-200 text-gray-800 p-3 rounded-xl max-w-[80%]">
+                        Hello! I'm your Learn Ease AI Assistant. How can I help you today?
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center pt-4 border-t border-gray-200">
+                <input type="text" id="chat-input" placeholder="Ask me anything..." class="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg">
+                <button id="send-chat-button" class="ml-4 px-6 py-2 bg-indigo-600 text-white font-semibold rounded-full shadow-md hover:bg-indigo-700 transition duration-300 flex items-center">
+                    Send
+                    <span id="chat-loading-spinner" class="loader hidden"></span>
+                </button>
+            </div>
+        </div>
+    </div>
 
-        mobileMenuButton.addEventListener('click', () => {
-            navbarLinks.classList.toggle('hidden');
-        });
-
-        // Close mobile menu when a link is clicked
-        navbarLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (!navbarLinks.classList.contains('hidden')) {
-                    navbarLinks.classList.add('hidden');
-                }
-            });
-        });
-
-
-        // --- Hero Section Carousel ---
-        const carouselItems = document.querySelectorAll('.carousel-item');
-        const carouselDots = document.querySelectorAll('.carousel-dots .dot');
-        let currentItem = 0;
-
-        function showCarouselItem(index) {
-            carouselItems.forEach((item, i) => {
-                item.classList.remove('active');
-                if (i === index) {
-                    item.classList.add('active');
-                    // Remove and re-add animation classes to restart animation
-                    item.querySelectorAll('.animate-fade-in-up').forEach(el => {
-                        el.classList.remove('animate-fade-in-up', 'delay-100', 'delay-200');
-                        void el.offsetWidth; // Trigger reflow
-                        el.classList.add('animate-fade-in-up');
-                        if (el.dataset.delay === '100') el.classList.add('delay-100');
-                        if (el.dataset.delay === '200') el.classList.add('delay-200');
-                    });
-                }
-            });
-            carouselDots.forEach((dot, i) => {
-                dot.classList.remove('opacity-100');
-                dot.classList.add('opacity-50');
-                if (i === index) {
-                    dot.classList.remove('opacity-50');
-                    dot.classList.add('opacity-100');
-                }
-            });
-        }
-
-        function nextCarouselItem() {
-            currentItem = (currentItem + 1) % carouselItems.length;
-            showCarouselItem(currentItem);
-        }
-
-        // Auto-advance carousel every 5 seconds
-        let carouselInterval = setInterval(nextCarouselItem, 5000);
-
-        // Add event listeners to dots for manual navigation
-        carouselDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                clearInterval(carouselInterval); // Stop auto-advance on manual interaction
-                currentItem = index;
-                showCarouselItem(currentItem);
-                carouselInterval = setInterval(nextCarouselItem, 5000); // Restart auto-advance
-            });
-        });
-
-        // Initialize carousel
-        showCarouselItem(currentItem);
-
-        // Add Tailwind animation keyframes for fade-in-up
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            .animate-fade-in-up {
-                animation: fadeInUp 0.6s ease-out forwards;
-            }
-            .delay-100 { animation-delay: 0.1s; }
-            .delay-200 { animation-delay: 0.2s; }
-        `;
-        document.head.appendChild(style);
-
-
-        // --- Course Detail Modal ---
-        const courseCards = document.querySelectorAll('.course-card');
-        const modal = document.getElementById('course-modal');
-        const closeButton = modal.querySelector('.close-button');
-
-        const modalCourseTitle = document.getElementById('modal-course-title');
-        const modalCourseDescription = document.getElementById('modal-course-description');
-        const modalCourseDuration = document.getElementById('modal-course-duration');
-        const modalCourseFees = document.getElementById('modal-course-fees');
-        const modalCourseInstructor = document.getElementById('modal-course-instructor');
-        const modalCourseBatch = document.getElementById('modal-course-batch');
-        const modalCourseLearnings = document.getElementById('modal-course-learnings');
-        const modalCourseCurriculum = document.getElementById('modal-course-curriculum');
-
-        courseCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const courseId = card.dataset.courseId;
-                const course = coursesData[courseId];
-
-                if (course) {
-                    modalCourseTitle.textContent = course.title;
-                    modalCourseDescription.textContent = course.description;
-                    modalCourseDuration.textContent = course.duration;
-                    modalCourseFees.textContent = course.fees;
-                    modalCourseInstructor.textContent = course.instructor;
-                    modalCourseBatch.textContent = course.batch;
-
-                    // Clear previous list items
-                    modalCourseLearnings.innerHTML = '';
-                    course.learnings.forEach(learning => {
-                        const li = document.createElement('li');
-                        li.textContent = learning;
-                        modalCourseLearnings.appendChild(li);
-                    });
-
-                    modalCourseCurriculum.innerHTML = '';
-                    course.curriculum.forEach(item => {
-                        const li = document.createElement('li');
-                        li.textContent = item;
-                        modalCourseCurriculum.appendChild(li);
-                    });
-
-                    modal.classList.add('show');
-                }
-            });
-        });
-
-        // Close modal when close button is clicked
-        closeButton.addEventListener('click', () => {
-            modal.classList.remove('show');
-        });
-
-        // Close modal when clicking outside the modal content
-        window.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                modal.classList.remove('show');
-            }
-        });
-
-        // Close modal when Escape key is pressed
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && modal.classList.contains('show')) {
-                modal.classList.remove('show');
-            }
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
