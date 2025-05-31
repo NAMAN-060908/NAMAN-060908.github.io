@@ -1,0 +1,101 @@
+/* style.css */
+body {
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+}
+.hero-section {
+    /* Luxurious Gradient Background */
+    background: linear-gradient(to right, #0a1f44, #2a0a44); /* Deep blue to deep purple */
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.6); /* Stronger shadow for text readability */
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align content to the left */
+    text-align: left; /* Text alignment */
+    padding-top: 96px; /* Adjust for fixed navbar */
+    position: relative;
+    overflow: hidden; /* Hide overflowing blob animations */
+}
+.hero-content {
+    max-width: 800px; /* Limit content width for better readability */
+    padding-left: 4rem; /* More padding on the left */
+    padding-right: 2rem;
+    z-index: 10; /* Ensure content is above background animations */
+}
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    backdrop-filter: blur(8px); /* Stronger blur effect */
+    -webkit-backdrop-filter: blur(8px); /* Safari support */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    pointer-events: none; /* Allows clicks through when hidden */
+}
+.modal.show {
+    opacity: 1;
+    pointer-events: auto; /* Disables clicks through when shown */
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 2.5rem;
+    border-radius: 2rem; /* More rounded */
+    width: 90%;
+    max-width: 900px; /* Slightly wider modal */
+    position: relative;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3); /* Stronger shadow */
+    transform: translateY(30px); /* More pronounced slide-in */
+    transition: transform 0.4s ease-in-out;
+}
+.modal.show .modal-content {
+    transform: translateY(0);
+}
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 1.2rem;
+    right: 1.8rem;
+    font-size: 2.8rem; /* Slightly larger close button */
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.close-button:hover,
+.close-button:focus {
+    color: #555; /* Darker on hover */
+    text-decoration: none;
+}
+
+/* Smooth scroll for anchor links */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loading spinner for AI generation */
+.loader {
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
