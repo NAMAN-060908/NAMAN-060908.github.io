@@ -5,29 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learn Ease - Your Path to Trending Skills</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
             scroll-behavior: smooth;
         }
-        /* Custom CSS for carousel and modal */
-        .carousel-item {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-        }
-        .carousel-item.active {
-            display: block;
-            opacity: 1;
-        }
-        .carousel-dots .dot.opacity-100 {
-            background-color: #fff; /* Active dot white */
-        }
-        .carousel-dots .dot {
-            background-color: rgba(255, 255, 255, 0.5); /* Inactive dot semi-transparent white */
-        }
-
+        /* Custom CSS for modal */
         .modal {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
@@ -37,9 +21,9 @@
             width: 100%; /* Full width */
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
-            backdrop-filter: blur(8px); /* Stronger blur effect */
-            -webkit-backdrop-filter: blur(8px); /* Safari support */
+            background-color: rgba(0,0,0,0.7); /* Darker overlay */
+            backdrop-filter: blur(10px); /* Stronger blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari support */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -52,33 +36,33 @@
             pointer-events: auto; /* Disables clicks through when shown */
         }
         .modal-content {
-            background-color: #fefefe;
+            background-color: #ffffff; /* Pure white content background */
             margin: auto;
-            padding: 2.5rem;
-            border-radius: 2rem; /* More rounded */
+            padding: 3rem; /* Increased padding */
+            border-radius: 2.5rem; /* Even more rounded */
             width: 90%;
-            max-width: 900px; /* Slightly wider modal */
+            max-width: 950px; /* Wider modal */
             position: relative;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3); /* Stronger shadow */
-            transform: translateY(30px); /* More pronounced slide-in */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4); /* Much stronger, diffused shadow */
+            transform: translateY(40px); /* More pronounced slide-in */
             transition: transform 0.4s ease-in-out;
         }
         .modal.show .modal-content {
             transform: translateY(0);
         }
         .close-button {
-            color: #aaa;
+            color: #888; /* Softer close button color */
             position: absolute;
-            top: 1.2rem;
-            right: 1.8rem;
-            font-size: 2.8rem; /* Slightly larger close button */
+            top: 1.5rem; /* Adjusted position */
+            right: 2rem; /* Adjusted position */
+            font-size: 3rem; /* Larger close button */
             font-weight: bold;
             cursor: pointer;
             transition: color 0.2s;
         }
         .close-button:hover,
         .close-button:focus {
-            color: #555; /* Darker on hover */
+            color: #333; /* Darker on hover */
             text-decoration: none;
         }
 
@@ -86,77 +70,61 @@
         html {
             scroll-behavior: smooth;
         }
+
+        /* Keyframes for fade-in-up animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+
+        /* Custom shadow for premium feel */
+        .shadow-3xl {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
-    <nav class="bg-white shadow-lg fixed w-full z-50 py-3">
-        <div class="container mx-auto px-6 md:flex md:justify-between md:items-center">
+    <nav class="bg-white shadow-lg fixed w-full z-50 py-4 border-b border-gray-200"> <div class="container mx-auto px-8 md:flex md:justify-between md:items-center">
             <div class="flex justify-between items-center">
-                <a href="#" class="text-3xl font-extrabold text-indigo-700 hover:text-indigo-800 transition duration-300">Learn Ease</a>
-                <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-gray-900 focus:outline-none focus:text-gray-900">
+                <a href="#" class="text-3xl font-extrabold text-blue-800 hover:text-blue-900 transition duration-300">Learn Ease</a> <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-gray-900 focus:outline-none focus:text-gray-900">
                     <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                     </svg>
                 </button>
             </div>
             <div id="navbar-links" class="md:flex flex-col md:flex-row md:items-center md:space-x-8 mt-4 md:mt-0 hidden">
-                <a href="#home" class="block text-lg font-medium text-gray-700 hover:text-indigo-600 transition duration-300 py-2 md:py-0">Home</a>
-                <a href="#courses" class="block text-lg font-medium text-gray-700 hover:text-indigo-600 transition duration-300 py-2 md:py-0">Courses</a>
-                <a href="#about" class="block text-lg font-medium text-gray-700 hover:text-indigo-600 transition duration-300 py-2 md:py-0">About Us</a>
-                <a href="#why-us" class="block text-lg font-medium text-gray-700 hover:text-indigo-600 transition duration-300 py-2 md:py-0">Why Us</a>
-                <a href="#uniqueness" class="block text-lg font-medium text-gray-700 hover:text-indigo-600 transition duration-300 py-2 md:py-0">Our Uniqueness</a>
-                <a href="#contact" class="block text-lg font-medium text-gray-700 hover:text-indigo-600 transition duration-300 py-2 md:py-0">Contact Us</a>
+                <a href="#home" class="block text-lg font-medium text-gray-700 hover:text-blue-700 transition duration-300 py-2 md:py-0">Home</a>
+                <a href="#courses" class="block text-lg font-medium text-gray-700 hover:text-blue-700 transition duration-300 py-2 md:py-0">Courses</a>
+                <a href="#about" class="block text-lg font-medium text-gray-700 hover:text-blue-700 transition duration-300 py-2 md:py-0">About Us</a>
+                <a href="#why-us" class="block text-lg font-medium text-gray-700 hover:text-blue-700 transition duration-300 py-2 md:py-0">Why Us</a>
+                <a href="#uniqueness" class="block text-lg font-medium text-gray-700 hover:text-blue-700 transition duration-300 py-2 md:py-0">Our Uniqueness</a>
+                <a href="#contact" class="block text-lg font-medium text-gray-700 hover:text-blue-700 transition duration-300 py-2 md:py-0">Contact Us</a>
                 <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 mt-4 md:mt-0">
-                    <button class="px-7 py-3 bg-indigo-600 text-white font-semibold rounded-full shadow-md hover:bg-indigo-700 transition duration-300 text-lg">Login</button>
-                    <button class="px-7 py-3 border border-indigo-600 text-indigo-700 font-semibold rounded-full hover:bg-indigo-50 transition duration-300 text-lg">Sign Up</button>
-                </div>
+                    <button class="px-8 py-3 bg-blue-700 text-white font-semibold rounded-full shadow-lg hover:bg-blue-800 transition duration-300 text-lg">Login</button> <button class="px-8 py-3 border border-blue-700 text-blue-800 font-semibold rounded-full hover:bg-blue-50 transition duration-300 text-lg">Sign Up</button> </div>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="relative bg-gradient-to-br from-indigo-600 to-purple-700 text-white min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden">
-        <div class="container mx-auto px-8 text-center z-10">
-            <div class="carousel-container relative w-full max-w-5xl mx-auto">
-                <div class="carousel-item active">
-                    <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 drop-shadow-lg animate-fade-in-up">
-                        Unlock Your Potential with <span class="text-yellow-300">Learn Ease</span>
-                    </h1>
-                    <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto opacity-90 animate-fade-in-up delay-100">
-                        Master trending skills like Data Science, AI, and Web Development with expert-led courses and practical projects.
-                    </p>
-                    <a href="#courses" class="inline-block px-12 py-5 bg-white text-indigo-700 font-bold text-xl rounded-full shadow-xl hover:bg-gray-100 transform hover:scale-105 transition duration-300 ease-in-out animate-fade-in-up delay-200">
-                        Explore Courses
-                    </a>
-                </div>
-                <div class="carousel-item">
-                    <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 drop-shadow-lg">
-                        Learn at Your Own Pace, Anytime, Anywhere
-                    </h1>
-                    <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto opacity-90">
-                        Flexible learning paths designed to fit your schedule and empower your career growth.
-                    </p>
-                    <a href="#why-us" class="inline-block px-12 py-5 bg-white text-indigo-700 font-bold text-xl rounded-full shadow-xl hover:bg-gray-100 transform hover:scale-105 transition duration-300 ease-in-out">
-                        Why Choose Us?
-                    </a>
-                </div>
-                <div class="carousel-item">
-                    <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 drop-shadow-lg">
-                        Industry-Relevant Curriculum & Expert Instructors
-                    </h1>
-                    <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto opacity-90">
-                        Gain practical skills directly applicable to today's job market from leading professionals.
-                    </p>
-                    <a href="#contact" class="inline-block px-12 py-5 bg-white text-indigo-700 font-bold text-xl rounded-full shadow-xl hover:bg-gray-100 transform hover:scale-105 transition duration-300 ease-in-out">
-                        Get in Touch
-                    </a>
-                </div>
-
-                <div class="carousel-dots absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3">
-                    <button class="dot w-4 h-4 bg-white opacity-50 rounded-full transition duration-300"></button>
-                    <button class="dot w-4 h-4 bg-white opacity-50 rounded-full transition duration-300"></button>
-                    <button class="dot w-4 h-4 bg-white opacity-50 rounded-full transition duration-300"></button>
-                </div>
+    <section id="home" class="relative bg-gradient-to-br from-blue-900 to-teal-700 text-white min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden"> <div class="container mx-auto px-8 z-10 text-left">
+            <div class="hero-content max-w-3xl md:ml-0">
+                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 drop-shadow-lg animate-fade-in-up">
+                    Unlock Your Potential with <span class="text-amber-400">Learn Ease</span> </h1>
+                <p class="text-xl md:text-2xl mb-10 opacity-90 animate-fade-in-up delay-100 font-light"> Master trending skills like Data Science, AI, and Web Development with expert-led courses and practical projects.
+                </p>
+                <a href="#courses" class="inline-block px-12 py-5 bg-amber-400 text-blue-900 font-bold text-xl rounded-full shadow-xl hover:bg-amber-500 transform hover:scale-105 transition duration-300 ease-in-out animate-fade-in-up delay-200"> Explore Courses
+                </a>
             </div>
         </div>
         <div class="absolute top-0 left-0 w-full h-full">
@@ -173,69 +141,57 @@
         <div class="container mx-auto px-6">
             <h2 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-12">Our Popular Courses</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="course-card bg-white rounded-3xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer p-6 border-b-8 border-indigo-500 hover:border-indigo-600"
-                    data-course-id="data-science">
-                    <img src="https://placehold.co/600x400/E0F2F7/2C3E50?text=Data+Science" alt="Data Science Course" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-md">
+                <div class="course-card bg-white rounded-3xl shadow-2xl overflow-hidden transform hover:translate-y-[-8px] transition duration-300 cursor-pointer p-6 border-b-8 border-blue-600 hover:border-blue-700"> <img src="https://images.unsplash.com/photo-1551288259-f81504179313?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU1Mjl8MHwxfHNlYXJjaHw0OXx8ZGF0YSUyMHNjaWVuY2V8ZW58MHx8fHwxNzE3MTc0ODczfDA&ixlib=rb-4.0.3&q=80&w=1080" onerror="this.onerror=null;this.src='https://placehold.co/600x400/E0F2F7/2C3E50?text=Data+Science';" alt="Data Science Course" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-md">
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">Data Science Masterclass</h3>
                     <p class="text-gray-600 mb-4 text-base leading-relaxed">Learn Python, R, Machine Learning, and Big Data technologies to become a data expert.</p>
                     <div class="flex justify-between items-center text-gray-700">
                         <span class="font-semibold text-lg">Duration: 6 Months</span>
-                        <span class="font-bold text-indigo-600 text-lg">Starts: July 15</span>
+                        <span class="font-bold text-blue-700 text-lg">Starts: July 15</span>
                     </div>
                 </div>
 
-                <div class="course-card bg-white rounded-3xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer p-6 border-b-8 border-purple-500 hover:border-purple-600"
-                    data-course-id="web-development">
-                    <img src="https://placehold.co/600x400/E6E0F7/2C3E50?text=Web+Development" alt="Web Development Course" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-md">
+                <div class="course-card bg-white rounded-3xl shadow-2xl overflow-hidden transform hover:translate-y-[-8px] transition duration-300 cursor-pointer p-6 border-b-8 border-teal-600 hover:border-teal-700"> <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9491?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU1Mjl8MHwxfHNlYXJjaHwzMXx8d2ebJTIwZGV2ZWxvcG1lbnR8ZW58MHx8fHwxNzE3MTc1NTE2fDA&onerror=null;this.src='https://placehold.co/600x400/E6E0F7/2C3E50?text=Web+Development';" alt="Web Development Course" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-md">
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">Full Stack Web Development</h3>
                     <p class="text-gray-600 mb-4 text-base leading-relaxed">Build dynamic web applications with React, Node.js, Express, and MongoDB.</p>
                     <div class="flex justify-between items-center text-gray-700">
                         <span class="font-semibold text-lg">Duration: 5 Months</span>
-                        <span class="font-bold text-purple-600 text-lg">Starts: Aug 1</span>
+                        <span class="font-bold text-teal-700 text-lg">Starts: Aug 1</span>
                     </div>
                 </div>
 
-                <div class="course-card bg-white rounded-3xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer p-6 border-b-8 border-green-500 hover:border-green-600"
-                    data-course-id="ai-ml">
-                    <img src="https://placehold.co/600x400/D4EDDA/2C3E50?text=AI+%26+ML" alt="AI & ML Course" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-md">
+                <div class="course-card bg-white rounded-3xl shadow-2xl overflow-hidden transform hover:translate-y-[-8px] transition duration-300 cursor-pointer p-6 border-b-8 border-purple-600 hover:border-purple-700"> <img src="https://images.unsplash.com/photo-1587429188200-a68fb26362f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU1Mjl8MHwxfHNlYXJjaHw3OXx8YXJ0aWZpY2lhbCUyMGludGVsbGlnZW5jZXxlbnwwfHwufHwxNzE3MTc1NzQ0fDA&onerror=null;this.src='https://placehold.co/600x400/D4EDDA/2C3E50?text=AI+%26+ML';" alt="AI & ML Course" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-md">
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">Artificial Intelligence & ML</h3>
                     <p class="text-gray-600 mb-4 text-base leading-relaxed">Dive into AI, Machine Learning, Deep Learning, and Neural Networks.</p>
                     <div class="flex justify-between items-center text-gray-700">
                         <span class="font-semibold text-lg">Duration: 7 Months</span>
-                        <span class="font-bold text-green-600 text-lg">Starts: Sep 10</span>
+                        <span class="font-bold text-purple-700 text-lg">Starts: Sep 10</span>
                     </div>
                 </div>
 
-                <div class="course-card bg-white rounded-3xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer p-6 border-b-8 border-yellow-500 hover:border-yellow-600"
-                    data-course-id="digital-marketing">
-                    <img src="https://placehold.co/600x400/FFF3CD/2C3E50?text=Digital+Marketing" alt="Digital Marketing Course" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-md">
+                <div class="course-card bg-white rounded-3xl shadow-2xl overflow-hidden transform hover:translate-y-[-8px] transition duration-300 cursor-pointer p-6 border-b-8 border-amber-500 hover:border-amber-600"> <img src="https://images.unsplash.com/photo-1626863071279-d29b2b4f0b2f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU1Mjl8MHwxfHNlYXJjaHw2Nnx8ZGlnaXRhbCUyMG1hcmtldGluZ3xlbnwwfHwufHwxNzE3MTc1ODU4fDA&onerror=null;this.src='https://placehold.co/600x400/FFF3CD/2C3E50?text=Digital+Marketing';" alt="Digital Marketing Course" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-md">
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">Certified Digital Marketing</h3>
                     <p class="text-gray-600 mb-4 text-base leading-relaxed">Master SEO, SEM, Social Media Marketing, Content Marketing, and Analytics.</p>
                     <div class="flex justify-between items-center text-gray-700">
                         <span class="font-semibold text-lg">Duration: 4 Months</span>
-                        <span class="font-bold text-yellow-600 text-lg">Starts: Oct 5</span>
+                        <span class="font-bold text-amber-600 text-lg">Starts: Oct 5</span>
                     </div>
                 </div>
 
-                <div class="course-card bg-white rounded-3xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer p-6 border-b-8 border-blue-500 hover:border-blue-600"
-                    data-course-id="cloud-computing">
-                    <img src="https://placehold.co/600x400/D1ECF1/2C3E50?text=Cloud+Computing" alt="Cloud Computing Course" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-md">
+                <div class="course-card bg-white rounded-3xl shadow-2xl overflow-hidden transform hover:translate-y-[-8px] transition duration-300 cursor-pointer p-6 border-b-8 border-cyan-600 hover:border-cyan-700"> <img src="https://images.unsplash.com/photo-1596541223130-5d31a735b115?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU1Mjl8MHwxfHNlYXJjaHwyMTR8fGNsb3VkJTIwY29tcHV0aW5nfGVufDB8fHx8MTcxNzE3NjAyNXww&ixlib=rb-4.0.3&q=80&w=1080" onerror="this.onerror=null;this.src='https://placehold.co/600x400/D1ECF1/2C3E50?text=Cloud+Computing';" alt="Cloud Computing Course" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-md">
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">Cloud Computing Fundamentals</h3>
                     <p class="text-gray-600 mb-4 text-base leading-relaxed">Explore AWS, Azure, and Google Cloud Platform for scalable solutions.</p>
                     <div class="flex justify-between items-center text-gray-700">
                         <span class="font-semibold text-lg">Duration: 5 Months</span>
-                        <span class="font-bold text-blue-600 text-lg">Starts: Nov 1</span>
+                        <span class="font-bold text-cyan-700 text-lg">Starts: Nov 1</span>
                     </div>
                 </div>
 
-                <div class="course-card bg-white rounded-3xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer p-6 border-b-8 border-red-500 hover:border-red-600"
-                    data-course-id="ui-ux-design">
-                    <img src="https://placehold.co/600x400/F8D7DA/2C3E50?text=UI%2FUX+Design" alt="UI/UX Design Course" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-md">
+                <div class="course-card bg-white rounded-3xl shadow-2xl overflow-hidden transform hover:translate-y-[-8px] transition duration-300 cursor-pointer p-6 border-b-8 border-rose-600 hover:border-rose-700"> <img src="https://images.unsplash.com/photo-1627443120150-f84edb6483b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU1Mjl8MHwxfHNlYXJjaHw3OXx8dWklMjB1eCUyMGRlc2lnbnxlbnwwfHwufHwxNzE3MTc2MTE4fDA&ixlib=rb-4.0.3&q=80&w=1080" onerror="this.onerror=null;this.src='https://placehold.co/600x400/F8D7DA/2C3E50?text=UI%2FUX+Design';" alt="UI/UX Design Course" class="w-full h-48 object-cover rounded-2xl mb-6 shadow-md">
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">Professional UI/UX Design</h3>
                     <p class="text-gray-600 mb-4 text-base leading-relaxed">Craft intuitive and beautiful user interfaces and experiences.</p>
                     <div class="flex justify-between items-center text-gray-700">
                         <span class="font-semibold text-lg">Duration: 4 Months</span>
-                        <span class="font-bold text-red-600 text-lg">Starts: Dec 1</span>
+                        <span class="font-bold text-rose-700 text-lg">Starts: Dec 1</span>
                     </div>
                 </div>
             </div>
@@ -248,27 +204,64 @@
             <h2 id="modal-course-title" class="text-4xl font-extrabold text-gray-900 mb-6"></h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                    <h3 class="text-2xl font-bold text-indigo-600 mb-3">About the Course</h3>
-                    <p id="modal-course-description" class="text-gray-700 leading-relaxed mb-6 text-lg"></p>
+                    <h3 class="text-2xl font-bold text-blue-700 mb-3">About the Course</h3> <p id="modal-course-description" class="text-gray-700 leading-relaxed mb-6 text-lg"></p>
 
-                    <h3 class="text-2xl font-bold text-indigo-600 mb-3">Key Learnings</h3>
-                    <ul id="modal-course-learnings" class="list-disc list-inside text-gray-700 mb-6 space-y-2 text-lg">
+                    <h3 class="text-2xl font-bold text-blue-700 mb-3">Key Learnings</h3> <ul id="modal-course-learnings" class="list-disc list-inside text-gray-700 mb-6 space-y-2 text-lg">
                         </ul>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold text-indigo-600 mb-3">Course Details</h3>
-                    <p class="text-gray-700 mb-2 text-lg"><span class="font-semibold">Duration:</span> <span id="modal-course-duration"></span></p>
+                    <h3 class="text-2xl font-bold text-blue-700 mb-3">Course Details</h3> <p class="text-gray-700 mb-2 text-lg"><span class="font-semibold">Duration:</span> <span id="modal-course-duration"></span></p>
                     <p class="text-gray-700 mb-2 text-lg"><span class="font-semibold">Fees:</span> <span id="modal-course-fees" class="text-green-600 font-bold"></span></p>
                     <p class="text-gray-700 mb-2 text-lg"><span class="font-semibold">Instructor:</span> <span id="modal-course-instructor"></span></p>
                     <p class="text-gray-700 mb-6 text-lg"><span class="font-semibold">Next Batch:</span> <span id="modal-course-batch"></span></p>
 
-                    <h3 class="text-2xl font-bold text-indigo-600 mb-3">Curriculum Highlights</h3>
-                    <ul id="modal-course-curriculum" class="list-disc list-inside text-gray-700 space-y-2 text-lg">
+                    <h3 class="text-2xl font-bold text-blue-700 mb-3">Curriculum Highlights</h3> <ul id="modal-course-curriculum" class="list-disc list-inside text-gray-700 space-y-2 text-lg">
                         </ul>
 
-                    <button class="mt-8 w-full px-8 py-4 bg-indigo-600 text-white font-bold text-xl rounded-xl shadow-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-105">
-                        Enroll Now
+                    <button id="generate-study-plan-button" class="mt-8 w-full px-8 py-4 bg-blue-700 text-white font-bold text-xl rounded-xl shadow-lg hover:bg-blue-800 transition duration-300 transform hover:scale-105">
+                        ✨ Generate Study Plan
                     </button>
+                    <div id="study-plan-output" class="mt-8 p-6 bg-gray-50 rounded-xl border border-gray-200 hidden">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Your Personalized Study Plan</h3>
+                        <div id="study-plan-content" class="text-gray-700 leading-relaxed text-base">
+                            </div>
+                        <div id="study-plan-loading" class="text-center text-blue-700 mt-4 hidden"> <svg class="animate-spin h-8 w-8 text-blue-700 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <p class="mt-2">Generating your study plan...</p>
+                        </div>
+                    </div>
+
+                    <button id="generate-faq-button" class="mt-4 w-full px-8 py-4 bg-teal-600 text-white font-bold text-xl rounded-xl shadow-lg hover:bg-teal-700 transition duration-300 transform hover:scale-105"> ❓ Generate Course FAQ
+                    </button>
+                    <div id="faq-output" class="mt-8 p-6 bg-gray-50 rounded-xl border border-gray-200 hidden">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h3>
+                        <div id="faq-content" class="text-gray-700 leading-relaxed text-base">
+                            </div>
+                        <div id="faq-loading" class="text-center text-teal-600 mt-4 hidden"> <svg class="animate-spin h-8 w-8 text-teal-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <p class="mt-2">Generating FAQs...</p>
+                        </div>
+                    </div>
+
+                    <button id="generate-career-path-button" class="mt-4 w-full px-8 py-4 bg-amber-500 text-blue-900 font-bold text-xl rounded-xl shadow-lg hover:bg-amber-600 transition duration-300 transform hover:scale-105">
+                        ✨ Generate Career Path Suggestions
+                    </button>
+                    <div id="career-path-output" class="mt-8 p-6 bg-gray-50 rounded-xl border border-gray-200 hidden">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Suggested Career Paths</h3>
+                        <div id="career-path-content" class="text-gray-700 leading-relaxed text-base">
+                            </div>
+                        <div id="career-path-loading" class="text-center text-amber-500 mt-4 hidden">
+                            <svg class="animate-spin h-8 w-8 text-amber-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <p class="mt-2">Generating career path suggestions...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -277,9 +270,7 @@
 
     <section id="about" class="py-16 md:py-24 bg-white">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-12">About <span class="text-indigo-700">Learn Ease</span></h2>
-            <div class="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed">
-                <p class="mb-6">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-12">About <span class="text-blue-800">Learn Ease</span></h2> <div class="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed font-light"> <p class="mb-6">
                     At Learn Ease, we believe that quality education should be accessible to everyone, everywhere. Our mission is to empower individuals with the most in-demand skills needed to thrive in today's rapidly evolving job market. We are committed to providing a learning experience that is not only effective but also engaging and enjoyable.
                 </p>
                 <p class="mb-6">
@@ -292,51 +283,42 @@
         </div>
     </section>
 
-    <section id="why-us" class="py-16 md:py-24 bg-indigo-50">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-12">Why Choose <span class="text-indigo-700">Learn Ease</span>?</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-2xl shadow-lg p-8 text-center transform hover:translate-y-[-5px] transition duration-300">
-                    <div class="text-indigo-600 mb-4">
-                        <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H2m20 0h-2.192a3 3 0 00-5.362-1.857M12 10a6 6 0 11-12 0 6 6 0 0112 0zm-6 9a9 9 0 100-18 9 9 0 000 18z"></path></svg>
+    <section id="why-us" class="py-16 md:py-24 bg-blue-50"> <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-12">Why Choose <span class="text-blue-800">Learn Ease</span>?</h2> <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform hover:translate-y-[-8px] transition duration-300"> <div class="text-blue-700 mb-4"> <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H2m20 0h-2.192a3 3 0 00-5.362-1.857M12 10a6 6 0 11-12 0 6 6 0 0112 0zm-6 9a9 9 0 100-18 9 9 0 000 18z"></path></svg>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">Expert Instructors</h3>
-                    <p class="text-gray-700 text-base">Learn from industry veterans and subject matter experts with years of practical experience.</p>
+                    <p class="text-gray-700 text-base font-light">Learn from industry veterans and subject matter experts with years of practical experience.</p>
                 </div>
-                <div class="bg-white rounded-2xl shadow-lg p-8 text-center transform hover:translate-y-[-5px] transition duration-300">
-                    <div class="text-indigo-600 mb-4">
-                        <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.928 12c0 3.072 1.47 5.753 3.705 7.427M12 21.025V12"></path></svg>
+                <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform hover:translate-y-[-8px] transition duration-300">
+                    <div class="text-teal-600 mb-4"> <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.928 12c0 3.072 1.47 5.753 3.705 7.427M12 21.025V12"></path></svg>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">Practical Learning</h3>
-                    <p class="text-gray-700 text-base">Our courses are project-based, ensuring you gain hands-on experience and build a strong portfolio.</p>
+                    <p class="text-gray-700 text-base font-light">Our courses are project-based, ensuring you gain hands-on experience and build a strong portfolio.</p>
                 </div>
-                <div class="bg-white rounded-2xl shadow-lg p-8 text-center transform hover:translate-y-[-5px] transition duration-300">
-                    <div class="text-indigo-600 mb-4">
-                        <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform hover:translate-y-[-8px] transition duration-300">
+                    <div class="text-amber-500 mb-4"> <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">Flexible Schedule</h3>
-                    <p class="text-gray-700 text-base">Learn at your own pace with flexible timings and access to course materials 24/7.</p>
+                    <p class="text-gray-700 text-base font-light">Learn at your own pace with flexible timings and access to course materials 24/7.</p>
                 </div>
-                <div class="bg-white rounded-2xl shadow-lg p-8 text-center transform hover:translate-y-[-5px] transition duration-300">
-                    <div class="text-indigo-600 mb-4">
-                        <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform hover:translate-y-[-8px] transition duration-300">
+                    <div class="text-purple-600 mb-4"> <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">Globally Recognized Certification</h3>
-                    <p class="text-gray-700 text-base">Receive a certificate upon completion, validating your new skills to employers worldwide.</p>
+                    <p class="text-gray-700 text-base font-light">Receive a certificate upon completion, validating your new skills to employers worldwide.</p>
                 </div>
-                <div class="bg-white rounded-2xl shadow-lg p-8 text-center transform hover:translate-y-[-5px] transition duration-300">
-                    <div class="text-indigo-600 mb-4">
-                        <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform hover:translate-y-[-8px] transition duration-300">
+                    <div class="text-rose-600 mb-4"> <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">Dedicated Career Support</h3>
-                    <p class="text-gray-700 text-base">From resume building to interview preparation, we help you land your dream job.</p>
+                    <p class="text-gray-700 text-base font-light">From resume building to interview preparation, we help you land your dream job.</p>
                 </div>
-                <div class="bg-white rounded-2xl shadow-lg p-8 text-center transform hover:translate-y-[-5px] transition duration-300">
-                    <div class="text-indigo-600 mb-4">
-                        <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform hover:translate-y-[-8px] transition duration-300">
+                    <div class="text-cyan-600 mb-4"> <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">Affordable Pricing</h3>
-                    <p class="text-gray-700 text-base">High-quality education at competitive prices, with flexible payment options.</p>
+                    <p class="text-gray-700 text-base font-light">High-quality education at competitive prices, with flexible payment options.</p>
                 </div>
             </div>
         </div>
@@ -344,10 +326,8 @@
 
     <section id="uniqueness" class="py-16 md:py-24 bg-white">
         <div class="container mx-auto px-6">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-12">What Makes Us <span class="text-indigo-700">Unique</span>?</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="text-lg text-gray-700 leading-relaxed space-y-6">
-                    <p>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-12">What Makes Us <span class="text-blue-800">Unique</span>?</h2> <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="text-lg text-gray-700 leading-relaxed space-y-6 font-light"> <p>
                         At Learn Ease, we go beyond traditional online learning. Our unique approach focuses on creating a holistic and immersive educational experience that truly prepares you for success.
                     </p>
                     <ul class="list-disc list-inside space-y-3 pl-4">
@@ -369,42 +349,37 @@
                     </ul>
                 </div>
                 <div class="relative">
-                    <img src="https://placehold.co/600x400/CFD8DC/2C3E50?text=Unique+Learning" alt="Unique Learning Experience" class="rounded-3xl shadow-xl w-full h-auto object-cover">
-                    <div class="absolute -bottom-8 -left-8 bg-indigo-200 p-6 rounded-full shadow-lg opacity-80 animate-pulse hidden md:block">
-                        <svg class="w-12 h-12 text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU1Mjl8MHwxfHNlYXJjaHwyOTN8fHVuaXF1ZSUyMGxlYXJuaW5nJTIwZXhwZXJpZW5jZXxlbnwwfHwufHwxNzE3MTc2MjI0fDA&ixlib=rb-4.0.3&q=80&w=1080" onerror="this.onerror=null;this.src='https://placehold.co/600x400/CFD8DC/2C3E50?text=Unique+Learning';" alt="Unique Learning Experience" class="rounded-3xl shadow-2xl w-full h-auto object-cover"> <div class="absolute -bottom-8 -left-8 bg-blue-200 p-6 rounded-full shadow-lg opacity-80 animate-pulse hidden md:block">
+                        <svg class="w-12 h-12 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-16 md:py-24 bg-indigo-700 text-white">
-        <div class="container mx-auto px-6">
+    <section id="contact" class="py-16 md:py-24 bg-blue-800 text-white"> <div class="container mx-auto px-6">
             <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-12">Get in Touch</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="bg-white p-8 rounded-3xl shadow-xl text-gray-800">
-                    <h3 class="text-3xl font-bold text-center text-gray-900 mb-8">Send Us a Message</h3>
+                <div class="bg-white p-8 rounded-3xl shadow-2xl text-gray-800"> <h3 class="text-3xl font-bold text-center text-gray-900 mb-8">Send Us a Message</h3>
                     <form class="space-y-6">
                         <div>
                             <label for="name" class="block text-lg font-medium text-gray-700 mb-2">Your Name</label>
-                            <input type="text" id="name" name="name" class="w-full px-5 py-3 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" placeholder="John Doe">
+                            <input type="text" id="name" name="name" class="w-full px-5 py-3 border border-gray-300 rounded-xl focus:ring-blue-600 focus:border-blue-600 transition duration-200" placeholder="John Doe">
                         </div>
                         <div>
                             <label for="email" class="block text-lg font-medium text-gray-700 mb-2">Your Email</label>
-                            <input type="email" id="email" name="email" class="w-full px-5 py-3 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" placeholder="john.doe@example.com">
+                            <input type="email" id="email" name="email" class="w-full px-5 py-3 border border-gray-300 rounded-xl focus:ring-blue-600 focus:border-blue-600 transition duration-200" placeholder="john.doe@example.com">
                         </div>
                         <div>
                             <label for="message" class="block text-lg font-medium text-gray-700 mb-2">Your Message</label>
-                            <textarea id="message" name="message" rows="6" class="w-full px-5 py-3 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" placeholder="Type your message here..."></textarea>
+                            <textarea id="message" name="message" rows="6" class="w-full px-5 py-3 border border-gray-300 rounded-xl focus:ring-blue-600 focus:border-blue-600 transition duration-200" placeholder="Type your message here..."></textarea>
                         </div>
-                        <button type="submit" class="w-full px-8 py-4 bg-indigo-600 text-white font-bold text-lg rounded-xl shadow-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-105">
-                            Send Message
+                        <button type="submit" class="w-full px-8 py-4 bg-amber-500 text-blue-900 font-bold text-lg rounded-xl shadow-lg hover:bg-amber-600 transition duration-300 transform hover:scale-105"> Send Message
                         </button>
                     </form>
                 </div>
 
-                <div class="text-center md:text-left">
-                    <h3 class="text-3xl font-bold mb-6">Contact Information</h3>
+                <div class="text-center md:text-left font-light"> <h3 class="text-3xl font-bold mb-6">Contact Information</h3>
                     <p class="text-xl mb-4 flex items-center justify-center md:justify-start">
                         <svg class="w-8 h-8 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         123 Skill Street, Knowledge City, Learn Land - 560001
@@ -471,8 +446,8 @@
                 <h3 class="text-xl font-bold text-white mb-4">Newsletter</h3>
                 <p class="text-gray-400 mb-4">Stay updated with our latest courses and offers.</p>
                 <form class="flex">
-                    <input type="email" placeholder="Your Email" class="px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-800 text-white w-full">
-                    <button type="submit" class="bg-indigo-600 text-white px-5 py-2 rounded-r-lg hover:bg-indigo-700 transition duration-300">Subscribe</button>
+                    <input type="email" placeholder="Your Email" class="px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-600 bg-gray-800 text-white w-full">
+                    <button type="submit" class="bg-blue-700 text-white px-5 py-2 rounded-r-lg hover:bg-blue-800 transition duration-300">Subscribe</button>
                 </form>
             </div>
         </div>
@@ -482,7 +457,7 @@
     </footer>
 
     <script>
-        // Data for course details (remains the same as before)
+        // Data for course details
         const coursesData = {
             'data-science': {
                 title: 'Data Science Masterclass',
@@ -671,80 +646,6 @@
             });
         });
 
-
-        // --- Hero Section Carousel ---
-        const carouselItems = document.querySelectorAll('.carousel-item');
-        const carouselDots = document.querySelectorAll('.carousel-dots .dot');
-        let currentItem = 0;
-
-        function showCarouselItem(index) {
-            carouselItems.forEach((item, i) => {
-                item.classList.remove('active');
-                if (i === index) {
-                    item.classList.add('active');
-                    // Remove and re-add animation classes to restart animation
-                    item.querySelectorAll('.animate-fade-in-up').forEach(el => {
-                        el.classList.remove('animate-fade-in-up', 'delay-100', 'delay-200');
-                        void el.offsetWidth; // Trigger reflow
-                        el.classList.add('animate-fade-in-up');
-                        if (el.dataset.delay === '100') el.classList.add('delay-100');
-                        if (el.dataset.delay === '200') el.classList.add('delay-200');
-                    });
-                }
-            });
-            carouselDots.forEach((dot, i) => {
-                dot.classList.remove('opacity-100');
-                dot.classList.add('opacity-50');
-                if (i === index) {
-                    dot.classList.remove('opacity-50');
-                    dot.classList.add('opacity-100');
-                }
-            });
-        }
-
-        function nextCarouselItem() {
-            currentItem = (currentItem + 1) % carouselItems.length;
-            showCarouselItem(currentItem);
-        }
-
-        // Auto-advance carousel every 5 seconds
-        let carouselInterval = setInterval(nextCarouselItem, 5000);
-
-        // Add event listeners to dots for manual navigation
-        carouselDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                clearInterval(carouselInterval); // Stop auto-advance on manual interaction
-                currentItem = index;
-                showCarouselItem(currentItem);
-                carouselInterval = setInterval(nextCarouselItem, 5000); // Restart auto-advance
-            });
-        });
-
-        // Initialize carousel
-        showCarouselItem(currentItem);
-
-        // Add Tailwind animation keyframes for fade-in-up
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            .animate-fade-in-up {
-                animation: fadeInUp 0.6s ease-out forwards;
-            }
-            .delay-100 { animation-delay: 0.1s; }
-            .delay-200 { animation-delay: 0.2s; }
-        `;
-        document.head.appendChild(style);
-
-
         // --- Course Detail Modal ---
         const courseCards = document.querySelectorAll('.course-card');
         const modal = document.getElementById('course-modal');
@@ -759,9 +660,28 @@
         const modalCourseLearnings = document.getElementById('modal-course-learnings');
         const modalCourseCurriculum = document.getElementById('modal-course-curriculum');
 
+        const generateStudyPlanButton = document.getElementById('generate-study-plan-button');
+        const studyPlanOutputDiv = document.getElementById('study-plan-output');
+        const studyPlanContentDiv = document.getElementById('study-plan-content');
+        const studyPlanLoadingDiv = document.getElementById('study-plan-loading');
+
+        const generateFaqButton = document.getElementById('generate-faq-button');
+        const faqOutputDiv = document.getElementById('faq-output');
+        const faqContentDiv = document.getElementById('faq-content');
+        const faqLoadingDiv = document.getElementById('faq-loading');
+
+        const generateCareerPathButton = document.getElementById('generate-career-path-button'); // New button
+        const careerPathOutputDiv = document.getElementById('career-path-output'); // New output div
+        const careerPathContentDiv = document.getElementById('career-path-content'); // New content div
+        const careerPathLoadingDiv = document.getElementById('career-path-loading'); // New loading div
+
+
+        let currentCourseId = null; // To store the ID of the currently open course
+
         courseCards.forEach(card => {
             card.addEventListener('click', () => {
                 const courseId = card.dataset.courseId;
+                currentCourseId = courseId; // Set the current course ID
                 const course = coursesData[courseId];
 
                 if (course) {
@@ -787,10 +707,202 @@
                         modalCourseCurriculum.appendChild(li);
                     });
 
+                    // Hide previous LLM outputs when a new course modal opens
+                    studyPlanOutputDiv.classList.add('hidden');
+                    studyPlanContentDiv.innerHTML = ''; // Clear previous content
+                    faqOutputDiv.classList.add('hidden'); // Hide FAQ output
+                    faqContentDiv.innerHTML = ''; // Clear FAQ content
+                    careerPathOutputDiv.classList.add('hidden'); // Hide career path output
+                    careerPathContentDiv.innerHTML = ''; // Clear career path content
+
                     modal.classList.add('show');
                 }
             });
         });
+
+        // Event listener for the "Generate Study Plan" button
+        generateStudyPlanButton.addEventListener('click', async () => {
+            if (!currentCourseId) return; // Do nothing if no course is selected
+
+            const course = coursesData[currentCourseId];
+            if (!course) return;
+
+            // Show loading indicator and clear previous content
+            studyPlanOutputDiv.classList.remove('hidden');
+            studyPlanContentDiv.innerHTML = '';
+            studyPlanLoadingDiv.classList.remove('hidden');
+
+            const prompt = `Generate a detailed study plan for the "${course.title}" course.
+            Course Description: ${course.description}
+            Key Learnings: ${course.learnings.join(', ')}
+            Curriculum Highlights: ${course.curriculum.join(', ')}
+            The plan should be structured week-by-week, covering the main topics and suggesting activities or projects. Aim for a duration of ${course.duration}.`;
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // Leave as-is, Canvas will provide it at runtime
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    studyPlanContentDiv.innerHTML = formatMarkdownToHtml(text); // Format the text for display
+                } else {
+                    studyPlanContentDiv.textContent = 'Failed to generate study plan. Please try again.';
+                    console.error('Gemini API response structure unexpected:', result);
+                }
+            } catch (error) {
+                studyPlanContentDiv.textContent = 'Error generating study plan. Please check your network connection or try again later.';
+                console.error('Error calling Gemini API:', error);
+            } finally {
+                studyPlanLoadingDiv.classList.add('hidden'); // Hide loading indicator
+            }
+        });
+
+        // Event listener for the "Generate Course FAQ" button
+        generateFaqButton.addEventListener('click', async () => {
+            if (!currentCourseId) return;
+
+            const course = coursesData[currentCourseId];
+            if (!course) return;
+
+            faqOutputDiv.classList.remove('hidden');
+            faqContentDiv.innerHTML = '';
+            faqLoadingDiv.classList.remove('hidden');
+
+            const prompt = `Generate a list of 5-7 frequently asked questions (FAQs) and their answers for the "${course.title}" course.
+            Base the FAQs on the following information:
+            Course Description: ${course.description}
+            Key Learnings: ${course.learnings.join(', ')}
+            Curriculum Highlights: ${course.curriculum.join(', ')}
+            Format the output as a list of Q&A pairs.`;
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    faqContentDiv.innerHTML = formatMarkdownToHtml(text); // Reuse formatting function
+                } else {
+                    faqContentDiv.textContent = 'Failed to generate FAQs. Please try again.';
+                    console.error('Gemini API response structure unexpected:', result);
+                }
+            } catch (error) {
+                faqContentDiv.textContent = 'Error generating FAQs. Please check your network connection or try again later.';
+                console.error('Error calling Gemini API:', error);
+            } finally {
+                faqLoadingDiv.classList.add('hidden');
+            }
+        });
+
+        // Event listener for the "Generate Career Path Suggestions" button
+        generateCareerPathButton.addEventListener('click', async () => {
+            if (!currentCourseId) return;
+
+            const course = coursesData[currentCourseId];
+            if (!course) return;
+
+            careerPathOutputDiv.classList.remove('hidden');
+            careerPathContentDiv.innerHTML = '';
+            careerPathLoadingDiv.classList.remove('hidden');
+
+            const prompt = `Generate career path suggestions for someone completing the "${course.title}" course.
+            Consider the following details:
+            Course Description: ${course.description}
+            Key Learnings: ${course.learnings.join(', ')}
+            Curriculum Highlights: ${course.curriculum.join(', ')}
+            Provide typical job roles, industries where these skills are in demand, and potential next steps or complementary skills to further career growth. Format the output as a list of suggestions.`;
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    careerPathContentDiv.innerHTML = formatMarkdownToHtml(text); // Reuse formatting function
+                } else {
+                    careerPathContentDiv.textContent = 'Failed to generate career path suggestions. Please try again.';
+                    console.error('Gemini API response structure unexpected:', result);
+                }
+            } catch (error) {
+                careerPathContentDiv.textContent = 'Error generating career path suggestions. Please check your network connection or try again later.';
+                console.error('Error calling Gemini API:', error);
+            } finally {
+                careerPathLoadingDiv.classList.add('hidden');
+            }
+        });
+
+
+        // Helper function to format markdown-like text to HTML
+        function formatMarkdownToHtml(text) {
+            let formattedText = text;
+            // Convert headers
+            formattedText = formattedText.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+            formattedText = formattedText.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+            formattedText = formattedText.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+            // Convert bold and italic
+            formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Bold
+            formattedText = formattedText.replace(/\*(.*?)\*/g, '<em>$1</em>'); // Italic
+            // Convert lists (simple list items)
+            formattedText = formattedText.replace(/^- (.*$)/gim, '<li class="ml-4">$1</li>'); // Add margin for nested lists
+            formattedText = formattedText.replace(/\n\n- /g, '<br><br>- '); // Ensure line breaks between list items if not already there
+            // Convert newlines to breaks, but handle existing HTML tags
+            formattedText = formattedText.split('\n').map(line => {
+                if (line.startsWith('<h') || line.startsWith('<ul') || line.startsWith('<li') || line.startsWith('<p')) {
+                    return line; // Don't add <br> if it's already an HTML tag
+                }
+                return line + '<br>';
+            }).join('');
+            // Wrap list items in <ul> if they are not already
+            if (formattedText.includes('<li>') && !formattedText.includes('<ul>')) {
+                formattedText = '<ul>' + formattedText + '</ul>';
+            }
+            // Remove extra <br> tags that might appear before or after blocks
+            formattedText = formattedText.replace(/<br>\s*<br>/g, '<br>');
+            formattedText = formattedText.replace(/<br><h/g, '<h'); // Remove br before headers
+            formattedText = formattedText.replace(/<br><ul>/g, '<ul>'); // Remove br before ul
+            formattedText = formattedText.replace(/<\/li><br>/g, '</li>'); // Remove br after li
+            return formattedText;
+        }
+
 
         // Close modal when close button is clicked
         closeButton.addEventListener('click', () => {
