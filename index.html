@@ -854,7 +854,7 @@
                 let chatHistory = [];
                 chatHistory.push({ role: "user", parts: [{ text: currentCoursePrompt }] });
                 const payload = { contents: chatHistory };
-                const apiKey = ""; // Leave as empty string; Canvas will provide it at runtime
+                const apiKey = "AIzaSyAc7dauaKCiVPk0DQ1RGD8feHYuX0Cd-VU";
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                 const response = await fetch(apiUrl, {
@@ -940,7 +940,7 @@
 
             try {
                 const payload = { contents: chatHistory };
-                const apiKey = ""; // Leave as empty string; Canvas will provide it at runtime
+                const apiKey = "AIzaSyAc7dauaKCiVPk0DQ1RGD8feHYuX0Cd-VU";
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                 const response = await fetch(apiUrl, {
@@ -1049,7 +1049,7 @@ Format your response as a numbered list of recommendations.`;
                 let chatHistory = [];
                 chatHistory.push({ role: "user", parts: [{ text: prompt }] });
                 const payload = { contents: chatHistory };
-                const apiKey = ""; // Leave as empty string; Canvas will provide it at runtime
+                const apiKey = "AIzaSyAc7dauaKCiVPk0DQ1RGD8feHYuX0Cd-VU";
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                 const response = await fetch(apiUrl, {
